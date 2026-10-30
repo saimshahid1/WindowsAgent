@@ -14,9 +14,10 @@ SAMPLE_RATE = 16000
 
 
 class SpeechToText:
-    def __init__(self, model_size="small"):
+    def __init__(self, model_size="small", language="en"):
         print("Loading speech model...")
         self.model = WhisperModel(model_size, device="cpu", compute_type="int8")
+        self.language = language
 
     def record(self):
         q = queue.Queue()
@@ -38,7 +39,9 @@ class SpeechToText:
     def transcribe(self, audio):
         if audio.size == 0:
             return ""
-        segments, _ = self.model.transcribe(audio, beam_size=1, vad_filter=True)
+        segments, _ = self.model.transcribe(
+            audio, beam_size=1, vad_filter=True, language=self.language
+        )
         return " ".join(s.text.strip() for s in segments).strip()
 
     def listen(self):

@@ -116,7 +116,7 @@ def check_microphone():
             "volume_percent": {"type": "integer", "description": "Microphone volume from 0 to 100."},
         },
     },
-    risk="change",
+    risk="low",
 )
 def set_microphone(muted=None, volume_percent=None):
     mic, vol = _get_default_mic()
@@ -146,7 +146,7 @@ def check_speakers():
             "volume_percent": {"type": "integer", "description": "Speaker volume from 0 to 100."},
         },
     },
-    risk="change",
+    risk="low",
 )
 def set_speakers(muted=None, volume_percent=None):
     speakers, vol = _get_default_speakers()

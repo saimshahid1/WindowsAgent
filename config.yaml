@@ -3,3 +3,8 @@ llm:
   api_base: null
   api_key: null
   temperature: 0.2
+
+voice:
+  stt_model: small
+  stt_language: en
+  tts_voice: en-US-AriaNeural

@@ -17,6 +17,9 @@ DANGEROUS_PATTERNS = [
     r"\.(kill|delete|stop|start|terminate|setvalue|create)\s*\(",
 ]
 
+YES_WORDS = {"yes", "yeah", "yep", "yup", "sure", "ok", "okay", "haan", "han", "ji", "ہاں", "جی"}
+NO_WORDS = {"no", "nope", "nah", "dont", "don't", "stop", "cancel", "nahi", "nahin", "نہیں"}
+
 
 def is_read_only_powershell(command):
     cmd = command.lower()
@@ -37,11 +40,21 @@ def is_read_only_powershell(command):
 
 def needs_confirmation(name, args):
     t = TOOLS.get(name)
-    if t is None or t["risk"] == "read":
+    if t is None or t["risk"] in ("read", "low"):
         return False
     if name == "run_powershell" and is_read_only_powershell(args.get("command", "")):
         return False
     return True
+
+
+def is_yes(text):
+    t = text.lower()
+    words = set(re.findall(r"[a-z']+|[\u0600-\u06FF]+", t))
+    if words & NO_WORDS:
+        return False
+    if "go ahead" in t or "do it" in t:
+        return True
+    return bool(words & YES_WORDS)
 
 
 def ask_user(name, args):
