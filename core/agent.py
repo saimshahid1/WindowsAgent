@@ -66,4 +66,4 @@ class Agent:
                     "content": result,
                 })
 
-        return "Sorry, main is kaam ko complete nahi kar saka."
+        return "Sorry, I could not complete this task."
