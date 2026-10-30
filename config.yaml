@@ -1,0 +1,5 @@
+llm:
+  model: groq/openai/gpt-oss-120b
+  api_base: null
+  api_key: null
+  temperature: 0.2
