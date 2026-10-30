@@ -5,6 +5,7 @@ from tools.registry import get_schemas, run_tool
 import tools.system
 import tools.powershell
 import tools.notifications
+import tools.audio
 
 SYSTEM_PROMPT = """You are a Windows device assistant running on the user's computer.
 You can use tools to check and fix problems on this computer.

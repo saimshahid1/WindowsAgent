@@ -1,3 +1,7 @@
+import warnings
+
+warnings.filterwarnings("ignore", module="pycaw")
+
 from core.agent import Agent
 
 
