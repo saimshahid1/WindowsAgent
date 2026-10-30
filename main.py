@@ -6,13 +6,15 @@ from core.agent import Agent
 
 
 def main():
-    agent = Agent()
-
     mode = input("Choose mode, t for text or v for voice: ").strip().lower()
-    stt = None
-    if mode == "v":
-        from core.voice import SpeechToText
+    voice_mode = mode == "v"
+
+    agent = Agent(voice_mode=voice_mode)
+    stt = tts = None
+    if voice_mode:
+        from core.voice import SpeechToText, TextToSpeech
         stt = SpeechToText()
+        tts = TextToSpeech()
 
     print("Windows Agent ready. Type or say 'exit' to quit.\n")
 
@@ -30,6 +32,8 @@ def main():
 
         reply = agent.run(user_input)
         print(f"Agent: {reply}\n")
+        if tts:
+            tts.speak(reply)
 
 
 if __name__ == "__main__":

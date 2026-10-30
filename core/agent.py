@@ -15,11 +15,17 @@ Use specific tools when available. Use run_powershell only when no other tool fi
 Some actions need user approval. If the user denies an action, do not try it again, explain what they can do instead.
 Reply in the same language the user writes in. Keep answers short and clear."""
 
+VOICE_PROMPT = """
+Your replies will be read aloud by a voice.
+Answer in one to three short spoken sentences.
+Never use tables, lists, markdown, symbols or emojis."""
+
 
 class Agent:
-    def __init__(self):
+    def __init__(self, voice_mode=False):
         self.llm = LLMProvider()
-        self.messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+        prompt = SYSTEM_PROMPT + (VOICE_PROMPT if voice_mode else "")
+        self.messages = [{"role": "system", "content": prompt}]
 
     def run(self, user_input, max_steps=5):
         self.messages.append({"role": "user", "content": user_input})
